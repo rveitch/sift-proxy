@@ -1,0 +1,19 @@
+{
+  "name": "sift-proxy",
+  "version": "1.0.0",
+  "description": "Elasticsearch Proxy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Ryan Veitch",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "request": "^2.75.0",
+    "request-debug": "^0.2.0",
+    "searchkit-express": "^0.2.1"
+  }
+}
