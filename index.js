@@ -1,6 +1,6 @@
 var express = require('express');
 var request = require('request');
-require('request-debug')(request);
+//require('request-debug')(request);
 var bodyParser = require('body-parser');
 var app = express();
 
@@ -15,9 +15,21 @@ app.use(bodyParser.json());
 app.use('/', function(req, res, body) {
 	// short-circuit favicon requests for easier debugging
 	if (req.url != '/favicon.ico') {
+		console.log('req.method: ' + req.method);
+		console.log('req.url: ' + req.url);
+
+		// Request method handling: exit if not GET or POST
+		if ( ! (req.method == 'GET' || req.method == 'POST') ) {
+			errMethod = { error: req.method + " request method is not supported. Use GET or POST." };
+			console.log("ERROR: " + req.method + " request method is not supported.");
+			res.write(JSON.stringify(errMethod));
+			res.end();
+			return;
+		}
+
 		// send your request
 	  var url = apiServerHost + req.url;
-		console.log('req.url: ' + req.url);
+		//console.log('req.url: ' + req.url);
 		//req.pipe(request(url)).pipe(res);
 		req.pipe(request({
 		    uri  : url,
@@ -32,7 +44,7 @@ app.use('/', function(req, res, body) {
 		}, function(err, res, body) {
 				//console.log('REQUEST RESULTS:', err, res.statusCode, body);
 				//console.log('server encoded the data as: ' + (res.headers['content-encoding'] || 'identity'))
-				console.log("\n" + 'The decoded data is: ' + body)
+				//console.log("\n" + 'The decoded data is: ' + body)
 		})).pipe(res);
 	}
 });
