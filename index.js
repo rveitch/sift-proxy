@@ -1,14 +1,14 @@
 var express = require('express');
 var request = require('request');
 //require('request-debug')(request);
-var bodyParser = require('body-parser');
+//var bodyParser = require('body-parser');
 var app = express();
 
 var port = Number(process.env.PORT || 3000);
 var apiServerHost = (process.env.ELASTIC_URL || 'https://3590b9d403c87e0697b6:8c2e5209a1@f08f4b1b.qb0x.com:30242/fccnn/_search') //http://127.0.0.1:9200
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended: false}));
+//app.use(bodyParser.json());
 
 
 // no-cors example: http://blog.javascripting.com/2015/01/17/dont-hassle-with-cors/
@@ -60,6 +60,7 @@ if (body) : filter body field from the soure fields
 // Server Listen
 app.listen(port, function () {
 	console.log('App server is running on http://localhost:' + port);
+	console.log('Heroku config variable - ELASTIC_URL: ' + process.env.ELASTIC_URL);
 	console.log('apiServerHost: ' + apiServerHost);
 });
 
