@@ -5,7 +5,7 @@ var request = require('request');
 var app = express();
 
 var port = Number(process.env.PORT || 3000);
-var apiServerHost = (process.env.ELASTIC_URL || 'https://3590b9d403c87e0697b6:8c2e5209a1@f08f4b1b.qb0x.com:30242/fccnn/_search') //http://127.0.0.1:9200
+var apiServerHost = (process.env.ELASTIC_URL || 'http://127.0.0.1:9200/fccnn/_search');
 
 //app.use(bodyParser.urlencoded({extended: false}));
 //app.use(bodyParser.json());
