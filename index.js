@@ -3,7 +3,7 @@ var request = require('request');
 var app = express();
 
 var port = Number(process.env.PORT || 3000);
-var apiServerHost = (process.env.ELASTIC_URL || 'http://127.0.0.1:9200/fccnn/_search');
+var apiServerHost = (process.env.ELASTIC_URL || 'https://3590b9d403c87e0697b6:8c2e5209a1@f08f4b1b.qb0x.com:30242') //http://127.0.0.1:9200
 
 app.use('/', function(req, res, body) {
 	// short-circuit favicon requests for easier debugging
@@ -33,7 +33,7 @@ app.use('/', function(req, res, body) {
 				},
 		    rejectUnauthorized : false,
 		}, function(err, res, body) {
-				//console.log('REQUEST RESULTS:', err, res.statusCode, body);
+				//console.log('REQUEST RESULTS:', err, res.statusCode, body`);
 				//console.log('server encoded the data as: ' + (res.headers['content-encoding'] || 'identity'))
 				//console.log("\n" + 'The decoded data is: ' + body)
 		})).pipe(res);
