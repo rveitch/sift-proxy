@@ -30,7 +30,9 @@ app.use('/', function(req, res, body) {
 		    },
 				headers: {
 					'accept-encoding': 'none',
-					'Access-Control-Allow-Origin': '*'
+					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Allow-Methods': 'GET, POST',
+					'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
 				},
 		    rejectUnauthorized : false,
 		}, function(err, res, body) {
