@@ -12,7 +12,7 @@ app.use('/', function(req, res, body) {
 		console.log('req.url: ' + req.url);
 
 		// Request method handling: exit if not GET or POST
-		if ( ! (req.method == 'GET' || req.method == 'POST') ) {
+		if ( ! (req.method == 'GET' || req.method == 'POST' || req.method == 'OPTIONS') ) {
 			errMethod = { error: req.method + " request method is not supported. Use GET or POST." };
 			console.log("ERROR: " + req.method + " request method is not supported.");
 			res.write(JSON.stringify(errMethod));
