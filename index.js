@@ -29,7 +29,8 @@ app.use('/', function(req, res, body) {
 		        pass : (process.env.ELASTIC_PASS || 'e1e81fcbe6')
 		    },
 				headers: {
-					'accept-encoding': 'none'
+					'accept-encoding': 'none',
+					'Access-Control-Allow-Origin': '*'
 				},
 		    rejectUnauthorized : false,
 		}, function(err, res, body) {
