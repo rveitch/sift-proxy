@@ -1,19 +1,27 @@
 {
   "name": "sift-proxy",
-  "version": "1.0.0",
-  "description": "Elasticsearch Proxy",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+  "version": "1.2.6",
+  "description": "Lightweight Elasticsearch Proxy App in Node.js",
+	"homepage": "https://github.com/rveitch/sift-proxy",
+  "bugs": "https://github.com/rveitch/sift-proxy/issues",
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/rveitch/sift-proxy"
   },
-  "author": "Ryan Veitch",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+	"authors": [
+    {
+      "name": "Ryan Veitch",
+      "email": "ryan.r.veitch@gmail.com"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "request": "^2.75.0",
-    "request-debug": "^0.2.0",
     "searchkit-express": "^0.2.1"
   }
 }
