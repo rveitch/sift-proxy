@@ -1,17 +1,18 @@
+'use strict';
 var express = require('express');
 var request = require('request');
 var app = express();
 
 var port = Number(process.env.PORT || 3000);
-var apiServerHost = (process.env.ELASTIC_URL || 'https://cb80282cbbc41f932c66:e1e81fcbe6@4425deab.qb0x.com:30816') //http://127.0.0.1:9200
+var config = require('./config');
+var es_auth;
 
 app.use('/', function(req, res, body) {
-	// short-circuit favicon requests for easier debugging
+	// Short-circuit favicon requests for easier debugging and cleaner logging
 	if (req.url != '/favicon.ico') {
-		console.log('req.method: ' + req.method);
-		console.log('req.url: ' + req.url);
+		console.log(Date() + ': ' + req.method + ': ' +req.url);
 
-		// Request method handling: exit if not GET or POST
+		// Request method handling: exit if not GET, POST or OPTIONS
 		if ( ! (req.method == 'GET' || req.method == 'POST' || req.method == 'OPTIONS') ) {
 			errMethod = { error: req.method + " request method is not supported. Use GET or POST." };
 			console.log("ERROR: " + req.method + " request method is not supported.");
@@ -20,14 +21,18 @@ app.use('/', function(req, res, body) {
 			return;
 		}
 
-		// send your request
-	  var url = apiServerHost + req.url;
+		// Define auth
+		if (config.es_user && config.es_pass) {
+			var es_auth = {
+					user : (process.env.ELASTIC_USER || config.es_user),
+					pass : (process.env.ELASTIC_PASS || config.es_pass)
+			}
+		}
+
+		// Send the request
 		req.pipe(request({
-		    uri  : url,
-		    auth : {
-		        user : (process.env.ELASTIC_USER || 'cb80282cbbc41f932c66'),
-		        pass : (process.env.ELASTIC_PASS || 'e1e81fcbe6')
-		    },
+		    uri  : (process.env.ELASTIC_URL || config.es_host) + req.url,
+		    auth : es_auth,
 				headers: {
 					'accept-encoding': 'none',
 					'Access-Control-Allow-Origin': '*',
@@ -36,9 +41,9 @@ app.use('/', function(req, res, body) {
 				},
 		    rejectUnauthorized : false,
 		}, function(err, res, body) {
-				//console.log('REQUEST RESULTS:', err, res.statusCode, body`);
-				//console.log('server encoded the data as: ' + (res.headers['content-encoding'] || 'identity'))
-				//console.log("\n" + 'The decoded data is: ' + body)
+				if (err !== null) {
+					console.error(Date() + ' ' + err);
+				}
 		})).pipe(res);
 	}
 });
@@ -46,6 +51,5 @@ app.use('/', function(req, res, body) {
 // Server Listen
 app.listen(port, function () {
 	console.log('App server is running on http://localhost:' + port);
-	console.log('Heroku config variable - ELASTIC_URL: ' + process.env.ELASTIC_URL);
-	console.log('apiServerHost: ' + apiServerHost);
+	console.log('ES_Host: ' + (process.env.ELASTIC_URL || config.es_host));
 });
