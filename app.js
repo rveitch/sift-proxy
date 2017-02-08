@@ -14,7 +14,7 @@ app.use('/', function(req, res, body) {
 
 		// Request method handling: exit if not GET, POST or OPTIONS
 		if ( ! (req.method == 'GET' || req.method == 'POST' || req.method == 'OPTIONS') ) {
-			errMethod = { error: req.method + " request method is not supported. Use GET or POST." };
+			errMethod = { error: req.method + " request method is not supported. Use GET, POST or OPTIONS." };
 			console.log("ERROR: " + req.method + " request method is not supported.");
 			res.write(JSON.stringify(errMethod));
 			res.end();
